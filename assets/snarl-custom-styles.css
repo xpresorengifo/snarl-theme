@@ -1,0 +1,37 @@
+/* SNARL Custom Shopify Styles */
+:root {
+    --clr-primary: #A8FF00;
+}
+
+.hero-absolute-btn:hover {
+    background-color: #b7ff33 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 255, 0, 0.3);
+}
+
+.about-absolute-btn:hover {
+    background-color: #A8FF00 !important;
+    color: #000 !important;
+}
+
+@media (max-width: 1200px) {
+    .hero-absolute-btn {
+        padding: 0.8rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    .about-absolute-btn {
+        padding: 0.7rem 1.2rem !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-absolute-btn {
+        padding: 0.6rem 1rem !important;
+        font-size: 0.75rem !important;
+    }
+    .about-absolute-btn {
+        padding: 0.5rem 0.8rem !important;
+        font-size: 0.65rem !important;
+    }
+}

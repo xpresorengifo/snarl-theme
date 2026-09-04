@@ -1,0 +1,220 @@
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+<style>
+.snarl-timeline-section {
+    padding: 6rem 0;
+    background-color: #0D0D0D;
+}
+.snarl-timeline-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+}
+.snarl-timeline-title-wrap {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+.snarl-timeline-title {
+    display: block;
+    color: #A8FF00;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+.snarl-timeline-wrapper {
+    position: relative;
+    padding-top: 2rem;
+}
+.snarl-timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #A8FF00;
+    z-index: 1;
+}
+.snarl-timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+.snarl-timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.snarl-timeline-year {
+    font-family: 'Permanent Marker', cursive;
+    color: #A8FF00;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    transform: rotate(-5deg);
+}
+.snarl-timeline-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #1a1a1a;
+    margin-bottom: 2rem;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+    overflow: hidden;
+}
+.snarl-timeline-item:hover .snarl-timeline-image {
+    border-color: #A8FF00;
+}
+.snarl-timeline-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+.snarl-timeline-item:hover .snarl-timeline-image img {
+    opacity: 1;
+}
+.snarl-timeline-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #A8FF00;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    position: relative;
+    margin-top: -8px; /* sits on the line */
+    z-index: 3;
+}
+.snarl-timeline-content h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+.snarl-timeline-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: #CFCFCF;
+}
+
+@media (max-width: 1024px) {
+    .snarl-timeline-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+    .snarl-timeline-line, .snarl-timeline-dot {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .snarl-timeline-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<section class="snarl-timeline-section">
+    <div class="snarl-timeline-container">
+        {% if section.settings.title != blank %}
+        <div class="snarl-timeline-title-wrap">
+            <span class="snarl-timeline-title">{{ section.settings.title }}</span>
+        </div>
+        {% endif %}
+        
+        <div class="snarl-timeline-wrapper">
+            <div class="snarl-timeline-line"></div>
+            <div class="snarl-timeline-grid">
+                {% for block in section.blocks %}
+                    <div class="snarl-timeline-item" {{ block.shopify_attributes }}>
+                        {% if block.settings.year != blank %}
+                            <div class="snarl-timeline-year">{{ block.settings.year }}</div>
+                        {% endif %}
+                        
+                        <div class="snarl-timeline-image">
+                            {% if block.settings.image != blank %}
+                                {{ block.settings.image | image_url: width: 600 | image_tag: alt: block.settings.year }}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </div>
+                        
+                        <div class="snarl-timeline-dot"></div>
+                        
+                        <div class="snarl-timeline-content">
+                            {% if block.settings.heading != blank %}
+                                <h3>{{ block.settings.heading }}</h3>
+                            {% endif %}
+                            {% if block.settings.text != blank %}
+                                <p>{{ block.settings.text }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "SNARL Timeline",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Subtítulo Principal",
+      "default": "NUESTRA HISTORIA"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "timeline_step",
+      "name": "Paso de tiempo (Año)",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Año / Texto destacado",
+          "default": "2024"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen del año"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "EL INICIO"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Descripción",
+          "default": "Descripción de lo que ocurrió en este año."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SNARL Timeline",
+      "blocks": [
+        { "type": "timeline_step" },
+        { "type": "timeline_step" },
+        { "type": "timeline_step" },
+        { "type": "timeline_step" }
+      ]
+    }
+  ]
+}
+{% endschema %}

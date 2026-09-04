@@ -1,0 +1,67 @@
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ 'snarl-custom-styles.css' | asset_url }}">
+
+<section class="snarl-hero-banner-container" style="position: relative; line-height: 0;">
+    {% if section.settings.bg_image != blank %}
+        {{ section.settings.bg_image | image_url: width: 2000 | image_tag: style: 'width: 100%; display: block; height: auto;', alt: section.settings.bg_image.alt }}
+    {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+
+    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="btn-primary hero-absolute-btn" style="position: absolute; left: {{ section.settings.button_pos_x }}%; bottom: {{ section.settings.button_pos_y }}%; border-radius: 0; padding: 1rem 2rem; font-size: 1rem; font-family: 'Inter', sans-serif; color: #000; font-weight: 800; text-transform: uppercase; background-color: #A8FF00; transition: all 0.3s ease; text-decoration: none;">
+            {{ section.settings.button_label }} &rarr;
+        </a>
+    {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "SNARL Hero Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Imagen de fondo (Hero Banner)"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "COMPRAR AHORA"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "range",
+      "id": "button_pos_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Posición X del botón (Izquierda a Derecha)",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_pos_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Posición Y del botón (Abajo hacia Arriba)",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "SNARL Hero Banner"
+    }
+  ]
+}
+{% endschema %}

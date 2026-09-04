@@ -1,0 +1,213 @@
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+.snarl-products-section {
+    padding: 6rem 0;
+    background-color: #0D0D0D;
+}
+.snarl-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.snarl-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #222;
+}
+.snarl-subtitle {
+    display: block;
+    color: #A8FF00;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+.snarl-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+}
+.snarl-view-all {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #A8FF00;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.snarl-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+.snarl-product-card {
+    background-color: #111;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    display: block;
+}
+.snarl-product-card:hover {
+    transform: translateY(-5px);
+}
+.snarl-product-image {
+    aspect-ratio: 1;
+    background: radial-gradient(circle, #222 0%, #111 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+.snarl-product-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.snarl-product-info {
+    padding: 1.5rem;
+    text-align: left;
+}
+.snarl-product-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+.snarl-product-price {
+    font-family: 'Inter', sans-serif;
+    color: #A8FF00;
+    font-weight: 800;
+    font-size: 1rem;
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .snarl-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .snarl-products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<section class="snarl-products-section">
+    <div class="snarl-container">
+        <div class="snarl-section-header">
+            <div>
+                {% if section.settings.subtitle != blank %}
+                    <span class="snarl-subtitle">{{ section.settings.subtitle }}</span>
+                {% endif %}
+                {% if section.settings.title != blank %}
+                    <h2 class="snarl-heading">{{ section.settings.title }}</h2>
+                {% endif %}
+            </div>
+            {% if section.settings.collection != blank and section.settings.show_view_all %}
+                <a href="{{ section.settings.collection.url }}" class="snarl-view-all">
+                    VER TODOS <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+                </a>
+            {% endif %}
+        </div>
+        
+        <div class="snarl-products-grid">
+            {%- assign collection = section.settings.collection -%}
+            {% if collection != blank and collection.products_count > 0 %}
+                {% for product in collection.products limit: section.settings.products_to_show %}
+                    <a href="{{ product.url }}" class="snarl-product-card">
+                        <div class="snarl-product-image">
+                            {% if product.featured_image != blank %}
+                                {{ product.featured_image | image_url: width: 500 | image_tag: alt: product.title }}
+                            {% else %}
+                                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </div>
+                        <div class="snarl-product-info">
+                            <h3 class="snarl-product-title">{{ product.title }}</h3>
+                            <p class="snarl-product-price">{{ product.price | money }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                {% for i in (1..4) %}
+                    <div class="snarl-product-card">
+                        <div class="snarl-product-image">
+                            {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
+                        <div class="snarl-product-info">
+                            <h3 class="snarl-product-title">Producto de ejemplo {{ i }}</h3>
+                            <p class="snarl-product-price">$99.90</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+</script>
+
+{% schema %}
+{
+  "name": "SNARL Productos",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "DESTACADOS"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "PRODUCTOS"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección a mostrar"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 2,
+      "default": 4,
+      "label": "Número de productos a mostrar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Mostrar enlace 'Ver todos'"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SNARL Productos Destacados"
+    }
+  ]
+}
+{% endschema %}

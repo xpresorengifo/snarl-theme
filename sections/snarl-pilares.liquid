@@ -1,0 +1,184 @@
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+.snarl-features-section {
+    padding: 6rem 0;
+    background-color: #080808;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+.snarl-features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.snarl-features-title {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+.snarl-features-subtitle {
+    display: block;
+    color: #A8FF00;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+.snarl-features-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+}
+.snarl-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+}
+.snarl-feature-item {
+    padding: 0 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.snarl-feature-item:last-child {
+    border-right: none;
+}
+.snarl-feature-icon {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    color: #A8FF00;
+}
+.snarl-feature-item h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+.snarl-feature-item p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #e0e0e0;
+}
+
+@media (max-width: 1024px) {
+    .snarl-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+    .snarl-feature-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 2rem;
+    }
+    .snarl-feature-item:last-child {
+        border-bottom: none;
+    }
+}
+@media (max-width: 768px) {
+    .snarl-features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<section class="snarl-features-section">
+    <div class="snarl-features-container">
+        {% if section.settings.title != blank or section.settings.subtitle != blank %}
+        <div class="snarl-features-title">
+            {% if section.settings.subtitle != blank %}
+                <span class="snarl-features-subtitle">{{ section.settings.subtitle }}</span>
+            {% endif %}
+            {% if section.settings.title != blank %}
+                <h2 class="snarl-features-heading">{{ section.settings.title }}</h2>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <div class="snarl-features-grid">
+            {% for block in section.blocks %}
+                <div class="snarl-feature-item" {{ block.shopify_attributes }}>
+                    <div class="snarl-feature-icon">
+                        <i data-lucide="{{ block.settings.lucide_icon_name }}" style="width: 40px; height: 40px; color: #A8FF00;"></i>
+                    </div>
+                    {% if block.settings.title != blank %}
+                        <h3>{{ block.settings.title }}</h3>
+                    {% endif %}
+                    {% if block.settings.text != blank %}
+                        <p>{{ block.settings.text }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+</script>
+
+{% schema %}
+{
+  "name": "SNARL Grid Info (Pilares)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo (ej. NUESTROS PILARES)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título Principal (ej. LO QUE NOS DEFINE)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Característica / Pilar",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "lucide_icon_name",
+          "label": "Nombre del icono (Lucide Icons)",
+          "default": "zap",
+          "info": "Busca nombres en lucide.dev/icons (ej. 'zap', 'crown', 'globe', 'spray-can')"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "TITULO"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Descripción",
+          "default": "Descripción de la característica o pilar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SNARL Grid Info",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}

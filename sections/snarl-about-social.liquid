@@ -1,0 +1,298 @@
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+.snarl-about-social-section {
+    padding: 6rem 0;
+    background-color: #050505;
+    border-top: 1px solid #1a1a1a;
+}
+.snarl-as-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.snarl-as-layout {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* Torn Paper About Image */
+.snarl-as-about-image {
+    flex: 1.2;
+    position: relative;
+    /* CSS roughly simulating torn edges. In production, an SVG mask is best */
+    clip-path: polygon(2% 0%, 98% 2%, 100% 98%, 0% 100%, 1% 50%);
+    background-color: #111;
+    overflow: hidden;
+}
+.snarl-as-about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Middle Text Content */
+.snarl-as-about-content {
+    flex: 1.5;
+    position: relative;
+    padding: 2rem 0;
+}
+.snarl-as-subtitle {
+    color: #A8FF00;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.snarl-as-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+}
+.snarl-as-heading span {
+    color: #A8FF00;
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-top: -10px;
+}
+.snarl-as-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #CFCFCF;
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+.snarl-as-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid #A8FF00;
+    color: #A8FF00;
+    padding: 0.8rem 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+.snarl-as-btn:hover {
+    background-color: #A8FF00;
+    color: #000;
+}
+.snarl-as-bg-deco {
+    position: absolute;
+    top: 0;
+    right: -20%;
+    opacity: 0.1;
+    pointer-events: none;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 4rem;
+    line-height: 1;
+    color: #fff;
+    transform: rotate(-10deg);
+}
+
+/* Instagram Feed */
+.snarl-as-social {
+    flex: 2;
+}
+.snarl-as-social-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+}
+.snarl-as-social-title {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0;
+}
+.snarl-as-social-link {
+    color: #A8FF00;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.snarl-as-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.snarl-as-post {
+    aspect-ratio: 4/5;
+    background-color: #1a1a1a;
+    overflow: hidden;
+}
+.snarl-as-post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.snarl-as-post:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 1200px) {
+    .snarl-as-layout {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .snarl-as-about-image, .snarl-as-about-content, .snarl-as-social {
+        width: 100%;
+    }
+}
+</style>
+
+<section class="snarl-about-social-section">
+    <div class="snarl-as-container">
+        <div class="snarl-as-layout">
+            
+            <!-- Left: Torn Image -->
+            <div class="snarl-as-about-image">
+                {% if section.settings.about_image != blank %}
+                    {{ section.settings.about_image | image_url: width: 800 | image_tag }}
+                {% else %}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+            </div>
+            
+            <!-- Middle: Text Content -->
+            <div class="snarl-as-about-content">
+                <div class="snarl-as-bg-deco">
+                    GOOD<br>PEOPLE<br>BAD<br>RULES
+                </div>
+                <span class="snarl-as-subtitle">SOBRE SNARL</span>
+                <h2 class="snarl-as-heading">
+                    MÁS QUE UNA MARCA,<br>
+                    <span>UN MOVIMIENTO.</span>
+                </h2>
+                <div class="snarl-as-text">
+                    {{ section.settings.about_text }}
+                </div>
+                <a href="{{ section.settings.about_btn_link }}" class="snarl-as-btn">{{ section.settings.about_btn_label }} &rarr;</a>
+            </div>
+            
+            <!-- Right: Instagram Feed -->
+            <div class="snarl-as-social">
+                <div class="snarl-as-social-header">
+                    <h3 class="snarl-as-social-title">SNARL EN LA CALLE</h3>
+                    <a href="{{ section.settings.ig_link }}" class="snarl-as-social-link">SÍGUENOS @SNARL.STORE &rarr;</a>
+                </div>
+                <div class="snarl-as-grid">
+                    {% for block in section.blocks limit: 4 %}
+                        <div class="snarl-as-post" {{ block.shopify_attributes }}>
+                            {% if block.settings.image != blank %}
+                                {{ block.settings.image | image_url: width: 400 | image_tag }}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <!-- Fill empty if < 4 -->
+                    {% assign current_blocks = section.blocks | size %}
+                    {% if current_blocks < 4 %}
+                        {% assign missing = 4 | minus: current_blocks %}
+                        {% for i in (1..missing) %}
+                            <div class="snarl-as-post">
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<script>
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+</script>
+
+{% schema %}
+{
+  "name": "SNARL About + Social",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Sección Sobre Nosotros"
+    },
+    {
+      "type": "image_picker",
+      "id": "about_image",
+      "label": "Imagen rasgada (Izquierda)"
+    },
+    {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "Texto descriptivo",
+      "default": "SNARL nace de la calle... No seguimos tendencias, las creamos."
+    },
+    {
+      "type": "text",
+      "id": "about_btn_label",
+      "label": "Texto del botón",
+      "default": "CONOCE NUESTRA HISTORIA"
+    },
+    {
+      "type": "url",
+      "id": "about_btn_link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "header",
+      "content": "Sección Instagram"
+    },
+    {
+      "type": "url",
+      "id": "ig_link",
+      "label": "Enlace a Instagram"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ig_post",
+      "name": "Foto de Instagram",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Foto del feed"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SNARL About + Social",
+      "blocks": [
+        { "type": "ig_post" },
+        { "type": "ig_post" },
+        { "type": "ig_post" },
+        { "type": "ig_post" }
+      ]
+    }
+  ]
+}
+{% endschema %}
