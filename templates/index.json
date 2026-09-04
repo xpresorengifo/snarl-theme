@@ -14,8 +14,8 @@
           "type": "feature",
           "settings": {
             "lucide_icon_name": "truck",
-            "title": "ENVÍOS A TODO EL PAÍS",
-            "text": "Rápidos, seguros y con seguimiento."
+            "title": "ENVIOS A TODO EL PAIS",
+            "text": "Rapidos, seguros y con seguimiento."
           }
         },
         "pilar_2": {
@@ -23,7 +23,7 @@
           "settings": {
             "lucide_icon_name": "shield-check",
             "title": "PAGOS SEGUROS",
-            "text": "Tarjetas, Yape, Plin y más."
+            "text": "Tarjetas, Yape, Plin y mas."
           }
         },
         "pilar_3": {
@@ -31,14 +31,14 @@
           "settings": {
             "lucide_icon_name": "star",
             "title": "CALIDAD PREMIUM",
-            "text": "Materiales resistentes para tu día a día."
+            "text": "Materiales resistentes para tu dia a dia."
           }
         },
         "pilar_4": {
           "type": "feature",
           "settings": {
             "lucide_icon_name": "globe",
-            "title": "DISEÑOS ORIGINALES",
+            "title": "DISENOS ORIGINALES",
             "text": "Creaciones propias inspiradas en la calle."
           }
         }
