@@ -244,7 +244,7 @@
                                 {% if product.featured_image != blank %}
                                     {{ product.featured_image | image_url: width: 400 | image_tag: alt: product.title }}
                                 {% else %}
-                                    {{ 'product-1' |<img src="{{ 'campana-skate-wear-live.png' | asset_url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1;">
+                                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                                 {% endif %}
                             </div>
                             <div class="snarl-adv-product-info">
@@ -266,7 +266,7 @@
                             <div class="snarl-adv-product-image">
                                 <div class="snarl-adv-badge">{% if i == 1 %}BEST SELLER{% else %}NUEVO{% endif %}</div>
                                 <div class="snarl-adv-heart"><i data-lucide="heart" style="width: 20px; height: 20px;"></i></div>
-                                {{ 'product-' | append: i |<img src="{{ 'campana-skate-wear-live.png' | asset_url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1;">
+                                {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
                             </div>
                             <div class="snarl-adv-product-info">
                                 <div>
@@ -287,7 +287,7 @@
                 {% if section.settings.side_image != blank %}
                     {{ section.settings.side_image | image_url: width: 800 | image_tag }}
                 {% else %}
-                    <img src="{{ 'campana-skate-wear-live.png' | asset_url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1;">|<img src="{{ 'campana-skate-wear-live.png' | asset_url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1;">
+                    <img src=\"{{ 'campana-skate-wear-live.png' | asset_url }}\" style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1;\">
                 {% endif %}
                 
                 <div class="snarl-adv-side-content">
@@ -353,13 +353,4 @@
       "name": "SNARL Productos Avanzados"
     }
   ]
-},
-  "presets": [
-    {
-      "name": "SNARL Productos Avanzados"
-    }
-  ]
-}
-{% endschema %}
-
-
+}, \"presets\": [{\"name\": \"SNARL Productos Avanzados\"}] } {% endschema %}

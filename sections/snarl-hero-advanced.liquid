@@ -34,8 +34,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.7) 100%);
-    z-index: 2;
+        z-index: 2;
 }
 
 .snarl-adv-hero-container {
@@ -170,7 +169,7 @@
         {% if section.settings.bg_image != blank %}
             {{ section.settings.bg_image | image_url: width: 2000 | image_tag }}
         {% else %}
-            <img src="{{ 'hero-principal---portada.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover;">|<img src="{{ 'hero-principal---portada.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src=\"{{ 'hero-principal---portada.png' | asset_url }}\" style=\"width: 100%; height: 100%; object-fit: cover;\">
         {% endif %}
     </div>
 
@@ -298,13 +297,4 @@
       "name": "SNARL Portada Avanzada"
     }
   ]
-},
-  "presets": [
-    {
-      "name": "SNARL Portada Avanzada"
-    }
-  ]
-}
-{% endschema %}
-
-
+}, \"presets\": [{\"name\": \"SNARL Portada Avanzada\"}] } {% endschema %}

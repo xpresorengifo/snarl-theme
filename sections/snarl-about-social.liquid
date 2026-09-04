@@ -168,7 +168,7 @@
                 {% if section.settings.about_image != blank %}
                     {{ section.settings.about_image | image_url: width: 800 | image_tag }}
                 {% else %}
-                    <img src="{{ 'seccion-obre-snarl.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">|<img src="{{ 'seccion-obre-snarl.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    <img src=\"{{ 'seccion-obre-snarl.png' | asset_url }}\" style=\"width: 100%; height: 100%; object-fit: cover; display: block;\">
                 {% endif %}
             </div>
             
@@ -200,7 +200,7 @@
                             {% if block.settings.image != blank %}
                                 {{ block.settings.image | image_url: width: 400 | image_tag }}
                             {% else %}
-                                <img src="{{ 'snarl-en-la-calle.png' | asset_url }}">|<img src="{{ 'seccion-obre-snarl.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -210,7 +210,7 @@
                         {% assign missing = 4 | minus: current_blocks %}
                         {% for i in (1..missing) %}
                             <div class="snarl-as-post">
-                                <img src="{{ 'snarl-en-la-calle.png' | asset_url }}">|<img src="{{ 'seccion-obre-snarl.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                             </div>
                         {% endfor %}
                     {% endif %}
@@ -294,19 +294,4 @@
       ]
     }
   ]
-},
-  "presets": [
-    {
-      "name": "SNARL About + Social",
-      "blocks": [
-        { "type": "instagram_post" },
-        { "type": "instagram_post" },
-        { "type": "instagram_post" },
-        { "type": "instagram_post" }
-      ]
-    }
-  ]
-}
-{% endschema %}
-
-
+}, \"presets\": [{\"name\": \"SNARL About + Social\", \"blocks\": [{\"type\":\"instagram_post\"},{\"type\":\"instagram_post\"},{\"type\":\"instagram_post\"},{\"type\":\"instagram_post\"}]}] } {% endschema %}
