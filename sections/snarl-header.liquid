@@ -1,0 +1,166 @@
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+.snarl-header {
+    background-color: #050505;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.snarl-header-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.snarl-header-logo img {
+    height: 40px;
+    width: auto;
+}
+.snarl-header-nav {
+    display: flex;
+    gap: 2rem;
+}
+.snarl-header-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+}
+.snarl-header-nav a:hover {
+    color: #A8FF00;
+}
+.snarl-header-nav a.active {
+    color: #A8FF00;
+    border-bottom: 2px solid #A8FF00;
+    padding-bottom: 5px;
+}
+.snarl-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.snarl-header-icons {
+    display: flex;
+    gap: 1rem;
+}
+.snarl-header-icons a {
+    color: #fff;
+    transition: color 0.3s;
+    position: relative;
+}
+.snarl-header-icons a:hover {
+    color: #A8FF00;
+}
+.snarl-header-cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #A8FF00;
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.snarl-header-tagline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #777;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: right;
+    border-left: 1px solid #333;
+    padding-left: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .snarl-header-nav, .snarl-header-tagline {
+        display: none;
+    }
+}
+</style>
+
+<header class="snarl-header">
+    <div class="snarl-header-container">
+        <a href="{{ routes.root_url }}" class="snarl-header-logo">
+            {% if section.settings.logo != blank %}
+                {{ section.settings.logo | image_url: width: 200 | image_tag }}
+            {% else %}
+                <img src="{{ 'nav-logo.png' | asset_url }}" alt="SNARL">
+            {% endif %}
+        </a>
+        
+        <nav class="snarl-header-nav">
+            {% for link in section.settings.menu.links %}
+                <a href="{{ link.url }}" {% if link.active %}class="active"{% endif %}>{{ link.title }}</a>
+            {% else %}
+                <a href="#" class="active">INICIO</a>
+                <a href="#">TIENDA</a>
+                <a href="#">COLECCIONES</a>
+                <a href="#">NOSOTROS</a>
+                <a href="#">LOOKBOOK</a>
+                <a href="#">CONTACTO</a>
+            {% endfor %}
+        </nav>
+        
+        <div class="snarl-header-actions">
+            <div class="snarl-header-icons">
+                <a href="{{ routes.search_url }}"><i data-lucide="search" style="width: 20px; height: 20px;"></i></a>
+                <a href="{{ routes.account_url }}"><i data-lucide="user" style="width: 20px; height: 20px;"></i></a>
+                <a href="{{ routes.cart_url }}">
+                    <i data-lucide="shopping-cart" style="width: 20px; height: 20px;"></i>
+                    {% if cart.item_count > 0 %}
+                        <span class="snarl-header-cart-count">{{ cart.item_count }}</span>
+                    {% else %}
+                        <span class="snarl-header-cart-count">0</span>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="snarl-header-tagline">
+                STREET CULTURE<br>WORLDWIDE
+                <i data-lucide="globe" style="width: 24px; height: 24px; color: #fff;"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+</script>
+
+{% schema %}
+{
+  "name": "SNARL Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú principal",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}
