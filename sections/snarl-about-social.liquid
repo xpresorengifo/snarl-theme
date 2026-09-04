@@ -168,7 +168,7 @@
                 {% if section.settings.about_image != blank %}
                     {{ section.settings.about_image | image_url: width: 800 | image_tag }}
                 {% else %}
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    <img src="{{ 'seccion-obre-snarl.png' | asset_url }}">|<img src="{{ 'seccion-obre-snarl.png' | asset_url }}">
                 {% endif %}
             </div>
             
@@ -200,7 +200,7 @@
                             {% if block.settings.image != blank %}
                                 {{ block.settings.image | image_url: width: 400 | image_tag }}
                             {% else %}
-                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                <img src="{{ 'snarl-en-la-calle.png' | asset_url }}">|<img src="{{ 'seccion-obre-snarl.png' | asset_url }}">
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -210,7 +210,7 @@
                         {% assign missing = 4 | minus: current_blocks %}
                         {% for i in (1..missing) %}
                             <div class="snarl-as-post">
-                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                <img src="{{ 'snarl-en-la-calle.png' | asset_url }}">|<img src="{{ 'seccion-obre-snarl.png' | asset_url }}">
                             </div>
                         {% endfor %}
                     {% endif %}

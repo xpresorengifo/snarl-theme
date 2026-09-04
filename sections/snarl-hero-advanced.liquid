@@ -170,7 +170,7 @@
         {% if section.settings.bg_image != blank %}
             {{ section.settings.bg_image | image_url: width: 2000 | image_tag }}
         {% else %}
-            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            <img src="{{ 'hero-principal---portada.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover;">|<img src="{{ 'hero-principal---portada.png' | asset_url }}" style="width: 100%; height: 100%; object-fit: cover;">
         {% endif %}
     </div>
 
